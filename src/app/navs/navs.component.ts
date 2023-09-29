@@ -10,11 +10,11 @@ export class NavsComponent {
 
   ngOnInit() {
     this.items = [
-      { label: 'Registro de Usuarios', routerLink: 'inicio' },
+      { label: 'Registro de Usuarios', routerLink: '/inicio' },
       {
-        label: 'Lista de Usuarios',        routerLink: 'formulario',
+        label: 'Lista de Usuarios',   routerLink: '/lista',
       },
-      { label: 'Agendar Citas', routerLink: '' },
+      { label: 'Agendar Citas', routerLink: '/agendar' },
     ];
   }
 }
