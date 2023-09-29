@@ -1,38 +1,187 @@
 <div class="container mt-5">
-    <h2>Agendar Cita</h2>
-    <form>
-      <div class="form-group">
-        <label for="userEmail">Correo del Usuario</label>
-        <input type="email" class="form-control" id="userEmail">
-        <button class="btn btn-primary mt-2" (click)="searchUser()">Buscar Usuario</button>
+  <h2>Agendar Cita</h2>
+  <form [formGroup]="validacioncitas" class="row g-3 needs-validation">
+    <div class="form-group">
+      <label for="email">Correo del Usuario</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        formControlName="email"
+      />
+    </div>
+    <div
+      *ngIf="
+        validacioncitas.controls['email'].invalid &&
+        (validacioncitas.controls['email'].dirty ||
+          validacioncitas.controls['email'].touched)
+      "
+      class="form-text text-danger"
+    >
+      <div *ngFor="let validation of user_validation_messages.email">
+        <div
+          style="font-size: smaller !important"
+          *ngIf="
+            validacioncitas.get('email')?.hasError(validation.type) &&
+            (validacioncitas.get('email')?.dirty ||
+              validacioncitas.get('email')?.touched)
+          "
+        >
+          {{ validation.message }}
+        </div>
       </div>
-  
-      <div class="form-group">
-        <label for="appointmentDate">Fecha y Hora de la Cita</label>
-        <input type="datetime-local" class="form-control" id="appointmentDate" >
+    </div>
+
+    <small
+      *ngIf="emailNoValido"
+      class="form-text text-danger animate_animated animate_heartBeat"
+    ></small>
+    <div class="col-12">
+      <button class="btn btn-primary" type="submit"  (click)="buscarUsuario()" >buscar</button>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Nombre</label>
+      <input
+        type="text"
+        class="form-control"
+        id="validationCustom01"
+        [value]="usuario?.firstName"
+        disabled
+      />
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Apellido:</label>
+      <input type="text" class="form-control"     [value]="usuario?.lastName" disabled />
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Edad:</label>
+      <div class="input-group has-validation">
+        <input
+          type="text"
+          class="form-control"
+          aria-describedby="inputGroupPrepend"
+          [value]="usuario?.age"
+          disabled
+        />
       </div>
-  
-      <div class="form-group">
-        <label for="specialty">Especialidad</label>
-        <select class="form-control" id="specialty" >
-          <option value="Medicina General">Medicina General</option>
-          <option value="Nutricionista">Nutricionista</option>
-          <option value="Odontología">Odontología</option>
-        </select>
+    </div>
+
+    <div class="form-group">
+      <label for="fecha">Fecha y Hora de la Cita</label>
+      <input
+        type="datetime-local"
+        class="form-control"
+        id="fecha"
+        formControlName="fecha"
+      />
+      <div
+        *ngIf="
+          validacioncitas.controls['fecha'].invalid &&
+          (validacioncitas.controls['fecha'].dirty ||
+            validacioncitas.controls['fecha'].touched)
+        "
+        class="form-text text-danger"
+      >
+        <div *ngFor="let validation of user_validation_messages.fecha">
+          <div
+            style="font-size: smaller !important"
+            *ngIf="
+              validacioncitas.get('fecha')?.hasError(validation.type) &&
+              (validacioncitas.get('fecha')?.dirty ||
+                validacioncitas.get('fecha')?.touched)
+            "
+          >
+            {{ validation.message }}
+          </div>
+        </div>
       </div>
-  
-      <div class="form-group">
-        <label for="observation">Observación</label>
-        <textarea class="form-control" id="observation"></textarea>
+
+      <small
+        *ngIf="fechaNoValido"
+        class="form-text text-danger animate_animated animate_heartBeat"
+      ></small>
+    </div>
+
+    <div class="form-group">
+      <label for="specialty">Especialidad</label>
+      <select class="form-control" id="specialty"  formControlName="Especialidad" >
+        <option value="Medicina General">Medicina General</option>
+        <option value="Nutricionista">Nutricionista</option>
+        <option value="Odontología">Odontología</option>
+      </select>
+      <div
+        *ngIf="
+          validacioncitas.controls['Especialidad'].invalid &&
+          (validacioncitas.controls['Especialidad'].dirty ||
+            validacioncitas.controls['Especialidad'].touched)
+        "
+        class="form-text text-danger"
+      >
+        <div *ngFor="let validation of user_validation_messages.Especialidad">
+          <div
+            style="font-size: smaller !important"
+            *ngIf="
+              validacioncitas.get('Especialidad')?.hasError(validation.type) &&
+              (validacioncitas.get('Especialidad')?.dirty ||
+                validacioncitas.get('Especialidad')?.touched)
+            "
+          >
+            {{ validation.message }}
+          </div>
+        </div>
       </div>
-  
-      <div class="form-group">
-        <label for="appointmentNumber">Número de Cita</label>
-        <input type="text" class="form-control" id="appointmentNumber"  disabled>
+
+      <small
+        *ngIf="EspecialidadNoValido"
+        class="form-text text-danger animate_animated animate_heartBeat"
+      ></small>
+    </div>
+
+    <div class="form-group">
+      <label for="observation">Observación</label>
+      <textarea
+        class="form-control"
+        id="observation"
+        formControlName="Obser"
+      ></textarea>
+      <div
+        *ngIf="
+          validacioncitas.controls['Obser'].invalid &&
+          (validacioncitas.controls['Obser'].dirty ||
+            validacioncitas.controls['Obser'].touched)
+        "
+        class="form-text text-danger"
+      >
+        <div *ngFor="let validation of user_validation_messages.Obser">
+          <div
+            style="font-size: smaller !important"
+            *ngIf="
+              validacioncitas.get('Obser')?.hasError(validation.type) &&
+              (validacioncitas.get('Obser')?.dirty ||
+                validacioncitas.get('Obser')?.touched)
+            "
+          >
+            {{ validation.message }}
+          </div>
+        </div>
       </div>
-  
-      <button type="button" class="btn btn-primary" (click)="generateAppointmentNumber()">Generar Número de Cita</button>
-      <button type="submit" class="btn btn-success">Agendar Cita</button>
-    </form>
-  </div>
-  
+
+      <small
+        *ngIf="ObserNoValido"
+        class="form-text text-danger animate_animated animate_heartBeat"
+      ></small>
+    </div>
+
+    <div class="form-group">
+      <label for="appointmentNumber">Número de Cita</label>
+      <input type="text" class="form-control" id="appointmentNumber" formControlName="numeroCita" />
+    </div>
+    <br />
+
+    <div class="col-12">
+    
+      <button class="btn btn-primary" type="submit" (click)="guardarCita()" >Agendar Cita</button>
+    </div>
+  </form>
+</div>
