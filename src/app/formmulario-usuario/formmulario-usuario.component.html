@@ -1,0 +1,154 @@
+<div class="container mt-5">
+  <form [formGroup]="validacionUser">
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nombre"
+        formControlName="nombre"
+        placeholder="ingrese el nombre"
+      />
+    </div>
+    <div
+      *ngIf="
+        validacionUser.controls['nombre'].invalid &&
+        (validacionUser.controls['nombre'].dirty ||
+          validacionUser.controls['nombre'].touched)
+      "
+      class="form-text text-danger"
+    >
+      <div *ngFor="let validation of user_validation_messages.nombre">
+        <div
+          style="font-size: smaller !important"
+          *ngIf="
+            validacionUser.get('nombre')?.hasError(validation.type) &&
+            (validacionUser.get('nombre')?.dirty ||
+              validacionUser.get('nombre')?.touched)
+          "
+        >
+          {{ validation.message }}
+        </div>
+      </div>
+    </div>
+    <small
+      *ngIf="nombreNoValido"
+      class="form-text text-danger animate__animated animate__heartBeat"
+    ></small>
+
+    <div class="form-group">
+      <label for="apellido">Apellido:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="apellido"
+        placeholder="ingrese el apellido"
+        formControlName="apellido"
+      />
+    </div>
+    <div
+    *ngIf="
+      validacionUser.controls['apellido'].invalid &&
+      (validacionUser.controls['apellido'].dirty ||
+        validacionUser.controls['apellido'].touched)
+    "
+    class="form-text text-danger"
+  >
+    <div *ngFor="let validation of user_validation_messages.apellido">
+      <div
+        style="font-size: smaller !important"
+        *ngIf="
+          validacionUser.get('apellido')?.hasError(validation.type) &&
+          (validacionUser.get('apellido')?.dirty ||
+            validacionUser.get('apellido')?.touched)
+        "
+      >
+        {{ validation.message }}
+      </div>
+    </div>
+  </div>
+  <small
+    *ngIf="apellidoNoValido"
+    class="form-text text-danger animate__animated animate__heartBeat"
+  ></small>
+
+    <div class="form-group">
+      <label for="edad">Edad:</label>
+      <input
+        type="number"
+        class="form-control"
+        id="edad"
+        formControlName="edad"
+        placeholder="ingrese la edad"
+      />
+    </div>
+    <div
+    *ngIf="
+      validacionUser.controls['edad'].invalid &&
+      (validacionUser.controls['edad'].dirty ||
+        validacionUser.controls['edad'].touched)
+    "
+    class="form-text text-danger"
+  >
+    <div *ngFor="let validation of user_validation_messages.edad">
+      <div
+        style="font-size: smaller !important"
+        *ngIf="
+          validacionUser.get('edad')?.hasError(validation.type) &&
+          (validacionUser.get('edad')?.dirty ||
+            validacionUser.get('edad')?.touched)
+        "
+      >
+        {{ validation.message }}
+      </div>
+    </div>
+  </div>
+  <small
+    *ngIf="edadNoValido"
+    class="form-text text-danger animate__animated animate__heartBeat"
+  ></small>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        formControlName="email"
+        placeholder="ingrese el Correo Electronico"
+      />
+    </div>
+    <div
+    *ngIf="
+      validacionUser.controls['email'].invalid &&
+      (validacionUser.controls['email'].dirty ||
+        validacionUser.controls['email'].touched)
+    "
+    class="form-text text-danger"
+  >
+    <div *ngFor="let validation of user_validation_messages.email">
+      <div
+        style="font-size: smaller !important"
+        *ngIf="
+          validacionUser.get('email')?.hasError(validation.type) &&
+          (validacionUser.get('email')?.dirty ||
+            validacionUser.get('email')?.touched)
+        "
+      >
+        {{ validation.message }}
+      </div>
+    </div>
+  </div>
+  <small
+    *ngIf="emailNoValido"
+    class="form-text text-danger animate__animated animate__heartBeat"
+  ></small>
+<br>
+    <div class="form-group">
+      <label for="image">Foto:</label>
+      <input type="file" class="form-control-file" id="image" formControlName="image" />
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </form>
+</div>
